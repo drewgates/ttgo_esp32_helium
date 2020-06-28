@@ -1,3 +1,6 @@
 .pio
 .clang_complete
 .gcc-flags.json
+.vscode/launch.json
+.vscode/c_cpp_properties.json
+.vscode/extensions.json

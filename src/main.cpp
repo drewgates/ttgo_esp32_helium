@@ -15,6 +15,8 @@ Button* buttonUser = NULL;
 void TaskButton( void *pvParameters );
 void TaskLMIC( void *pvParameters );
 
+//Key endian is incredibly important. DeviceEUI and App EUI should be Least Significant Byte (lsb). AppKey should be Most Significant Byte (msb)
+
 static const u1_t PROGMEM DEVEUI[8]= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //Device EUI (lsb)
 static const u1_t PROGMEM APPEUI[8]= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //App EUI (lsb)
 static const u1_t PROGMEM APPKEY[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //App Key (msb)
@@ -212,7 +214,7 @@ void TaskLMIC(void *pvParameters) {// Task on core 1
   LMIC_setClockError(1 * MAX_CLOCK_ERROR / 40);
   LMIC_setLinkCheckMode(0);
   LMIC_setDrTxpow(DR_SF7,14);
-  LMIC_selectSubBand(1);
+  LMIC_selectSubBand(1); //LoRa Band 2, but zero-based index
   do_send(&sendjob);
 
   while(true) {
